@@ -1,0 +1,33 @@
+{
+    "appenders": {
+        "console": {
+            "type": "console"
+        },
+        "access": {
+            "type": "dateFile",
+            "filename": "./logs/access.log",
+            "pattern": "-yyyy-MM-dd",
+            "numBackups": 7
+        },
+        "error": {
+            "type": "dateFile",
+            "filename": "./logs/error.log",
+            "pattern": "-yyyy-MM-dd",
+            "numBackups": 7
+        }
+    },
+    "categories": {
+        "default": {
+            "appenders": ["console"],
+            "level": "all"
+        },
+        "access": {
+            "appenders": ["access"],
+            "level": "all"
+        },
+        "error": {
+            "appenders": ["error", "console"],
+            "level": "all"
+        }
+    }
+}

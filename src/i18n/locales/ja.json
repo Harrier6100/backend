@@ -1,0 +1,83 @@
+{
+  "BUTTON": {
+    "LOGIN": "@:{'LABEL.SIGNIN'}",
+    "CLOSE": "@:{'LABEL.CLOSE'}",
+    "CREATE_NEW": "@:{'LABEL.CREATE_NEW'}",
+    "SAVE": "@:{'LABEL.SAVE'}",
+    "BACK": "@:{'LABEL.BACK'}",
+    "EDIT": "@:{'LABEL.EDIT'}",
+    "DELETE": "@:{'LABEL.DELETE'}",
+    "LOGOUT": "@:{'LABEL.LOGOUT'}",
+    "YES": "@:{'LABEL.YES'}",
+    "NO": "@:{'LABEL.NO'}",
+    "PERMISSION_MODAL": "権限設定"
+  },
+  "MENU": {
+    "ADMIN": "管理",
+    "LOCALES": "翻訳",
+    "USERS": "アカウント",
+    "LOCALES_NEW": "@:{'MENU.LOCALES'} - @:{'LABEL.CREATE_NEW'}",
+    "LOCALES_ID": "@:{'MENU.LOCALES'} - @:{'LABEL.EDIT'}",
+    "HOME": "ホーム"
+  },
+  "CONFIRM": {
+    "LOGOUT": "@:{'LABEL.LOGOUT'}しますか？",
+    "DELETE": "@:{'LABEL.DELETE'}しますか？"
+  },
+  "YUP": {
+    "REQUIRED": "{ label }は必須です。"
+  },
+  "LABEL": {
+    "LOCALES": {
+      "ID": "翻訳キー",
+      "LOCALES": "翻訳"
+    },
+    "CREATED_AT": "作成日時",
+    "CREATED_BY": "作成者",
+    "UPDATED_AT": "更新日時",
+    "UPDATED_BY": "更新者",
+    "DELETE": "削除",
+    "LOGOUT": "ログアウト",
+    "BACK": "戻る",
+    "CLOSE": "閉じる",
+    "CREATE_NEW": "新規作成",
+    "EDIT": "編集",
+    "YES": "はい",
+    "NO": "いいえ",
+    "SAVE": "保存",
+    "LOGIN": {
+      "ID": "アカウント",
+      "PASSWORD": "パスワード"
+    },
+    "SIGNIN": "ログイン",
+    "ACTIONS": "@:{''}",
+    "USERS": {
+      "ID": "アカウント",
+      "NAME": "アカウント名",
+      "ROLE": "ロール",
+      "ROLE-ADMIN": "管理者",
+      "ROLE-USER": "ユーザー",
+      "ROLE-GUEST": "ゲスト",
+      "REMARKS": "備考",
+      "EXPIRY_DATE": "有効期限"
+    },
+    "PERMISSION_READ": "参照",
+    "PERMISSION_CREATE": "作成",
+    "PERMISSION_UPDATE": "更新",
+    "PERMISSION_DELETE": "削除"
+  },
+  "MESSAGE": {
+    "API": {
+      "AUTH_FAILED": "{{LABEL.LOGIN.ID}}または{{LABEL.LOGIN.PASSWORD}}が不正です。",
+      "AUTH_EXPIRED": "{{LABEL.LOGIN.ID}}の有効期限が切れています。",
+      "NO_TOKEN": "トークンが提供されていません。",
+      "INVALID_TOKEN": "無効なトークンです。"
+    },
+    "SAVE": "保存しました。",
+    "DELETE": "削除しました。",
+    "USER_NOT_FOUND": "{{LABEL.USERS.ID}}が存在しません。",
+    "USER_EXISTS": "{{LABEL.USERS.ID}}が既に存在します。",
+    "LOCALE_NOT_FOUND": "{{LABEL.LOCALES.ID}}が存在しません。",
+    "LOCALE_EXISTS": "{{LABEL.LOCALES.ID}}が既に存在します。"
+  }
+}
