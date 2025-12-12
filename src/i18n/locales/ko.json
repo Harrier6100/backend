@@ -1,1 +1,27 @@
-{}
+{
+  "BUTTON": {
+    "LOGIN": "@:{'LABEL.SIGNIN'}",
+    "CLOSE": "@:{'LABEL.CLOSE'}",
+    "CREATE_NEW": "@:{'LABEL.CREATE_NEW'}",
+    "SAVE": "@:{'LABEL.SAVE'}",
+    "BACK": "@:{'LABEL.BACK'}",
+    "EDIT": "@:{'LABEL.EDIT'}",
+    "DELETE": "@:{'LABEL.DELETE'}",
+    "LOGOUT": "@:{'LABEL.LOGOUT'}",
+    "YES": "@:{'LABEL.YES'}",
+    "NO": "@:{'LABEL.NO'}",
+    "PERMISSION": "@:{'LABEL.PERMISSION'}"
+  },
+  "CONFIRM": {
+    "DELETE": "@:{'LABEL.DELETE'}하시겠습니까?"
+  },
+  "MENU": {
+    "LOCALES_NEW": "@:{'MENU.LOCALES'} - @:{'LABEL.CREATE_NEW'}\t",
+    "LOCALES_ID": "@:{'MENU.LOCALES'} - @:{'LABEL.EDIT'}"
+  },
+  "LABEL": {
+    "LOGOUT": "로그아웃",
+    "EDIT": "편집",
+    "ACTIONS": "@:{''}"
+  }
+}

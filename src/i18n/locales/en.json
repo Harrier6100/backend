@@ -1,1 +1,65 @@
-{}
+{
+  "BUTTON": {
+    "LOGIN": "@:{'LABEL.SIGNIN'}",
+    "CLOSE": "@:{'LABEL.CLOSE'}",
+    "CREATE_NEW": "@:{'LABEL.CREATE_NEW'}",
+    "SAVE": "@:{'LABEL.SAVE'}",
+    "BACK": "@:{'LABEL.BACK'}",
+    "EDIT": "@:{'LABEL.EDIT'}",
+    "DELETE": "@:{'LABEL.DELETE'}",
+    "LOGOUT": "@:{'LABEL.LOGOUT'}",
+    "YES": "@:{'LABEL.YES'}",
+    "NO": "@:{'LABEL.NO'}",
+    "PERMISSION": "@:{'LABEL.PERMISSION'}"
+  },
+  "MENU": {
+    "ADMIN": "Admin",
+    "LOCALES": "Locales",
+    "USERS": "Users",
+    "LOCALES_NEW": "@:{'MENU.LOCALES'} - @:{'LABEL.CREATE_NEW'}\t",
+    "LOCALES_ID": "@:{'MENU.LOCALES'} - @:{'LABEL.EDIT'}",
+    "HOME": "Home"
+  },
+  "YUP": {
+    "REQUIRED": "{ label } is required."
+  },
+  "LABEL": {
+    "LOCALES": {
+      "ID": "Locale Key",
+      "LOCALES": "Locale"
+    },
+    "CREATED_AT": "Created At",
+    "CREATED_BY": "Created By",
+    "UPDATED_AT": "Updated At",
+    "UPDATED_BY": "Updated By",
+    "DELETE": "Delete",
+    "LOGOUT": "Logout",
+    "BACK": "Back",
+    "CLOSE": "Close",
+    "CREATE_NEW": "Create New",
+    "EDIT": "Edit",
+    "YES": "Yes",
+    "NO": "No",
+    "SAVE": "Save",
+    "LOGIN": {
+      "ID": "ID",
+      "PASSWORD": "Password"
+    },
+    "SIGNIN": "Login",
+    "ACTIONS": "@:{''}",
+    "USERS": {
+      "ID": "User ID",
+      "NAME": "User Name",
+      "ROLE": "Role",
+      "REMARKS": "Remarks",
+      "EXPIRY_DATE": "Expiry Date",
+      "ROLE_ADMIN": "Admin",
+      "ROLE_USER": "User",
+      "ROLE_GUEST": "Guest"
+    },
+    "PERMISSION": "Permission",
+    "READ": "Read",
+    "CREATE": "Create",
+    "UPDATE": "Update"
+  }
+}

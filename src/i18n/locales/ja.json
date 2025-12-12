@@ -10,7 +10,7 @@
     "LOGOUT": "@:{'LABEL.LOGOUT'}",
     "YES": "@:{'LABEL.YES'}",
     "NO": "@:{'LABEL.NO'}",
-    "PERMISSION_MODAL": "権限設定"
+    "PERMISSION": "@:{'LABEL.PERMISSION'}"
   },
   "MENU": {
     "ADMIN": "管理",
@@ -55,16 +55,16 @@
       "ID": "アカウント",
       "NAME": "アカウント名",
       "ROLE": "ロール",
-      "ROLE-ADMIN": "管理者",
-      "ROLE-USER": "ユーザー",
-      "ROLE-GUEST": "ゲスト",
       "REMARKS": "備考",
-      "EXPIRY_DATE": "有効期限"
+      "EXPIRY_DATE": "有効期限",
+      "ROLE_ADMIN": "管理者",
+      "ROLE_USER": "ユーザー",
+      "ROLE_GUEST": "ゲスト"
     },
-    "PERMISSION_READ": "参照",
-    "PERMISSION_CREATE": "作成",
-    "PERMISSION_UPDATE": "更新",
-    "PERMISSION_DELETE": "削除"
+    "PERMISSION": "権限",
+    "READ": "参照",
+    "CREATE": "作成",
+    "UPDATE": "更新"
   },
   "MESSAGE": {
     "API": {
