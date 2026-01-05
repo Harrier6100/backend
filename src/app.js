@@ -7,6 +7,7 @@ const cacheControl = require('@/middlewares/cacheControl');
 const accessLogger = require('@/middlewares/accessLogger');
 const errorLogger = require('@/middlewares/errorLogger');
 const errorHandler = require('@/middlewares/errorHandler');
+global.HttpError = require('@/errors/HttpError');
 
 const corsOptions = {
     origin: true,

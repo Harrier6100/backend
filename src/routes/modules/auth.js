@@ -4,7 +4,8 @@ const moment = require('moment');
 const bcrypt = require('bcrypt');
 const jsonwebtoken = require('jsonwebtoken');
 const HttpError = require('@/errors/HttpError');
-const Users = require('@/models/users');
+const { snakeize } = require('@/utils/case');
+const db = require('@/config/db.postgres');
 
 const generateAccessToken = ({ id, name, role, permissions }) => {
     return jsonwebtoken.sign(
@@ -26,7 +27,9 @@ router.post('/login', async (req, res, next) => {
     const { id, password } = req.body;
 
     try {
-        const user = await Users.findById(id);
+        const user = await db.oneOrNone(`
+            select * from users where id = \${id}
+        `, { id });
         if (!user || !(await bcrypt.compare(password, user.password))) {
             throw new HttpError(req.t('MESSAGE.API.AUTH_FAILED'), 401);
         }
@@ -60,12 +63,13 @@ router.post('/auto/login', async (req, res, next) => {
         const { id } = await new Promise((resolve, reject) => {
             jsonwebtoken.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
                 if (err) return reject(new HttpError(req.t('MESSAGE.API.INVALID_TOKEN'), 401));
-
                 resolve(decoded);
             });
         });
 
-        const user = await Users.findById(id);
+        const user = await db.oneOrNone(`
+            select * from users where id = \${id}
+        `, { id });
         if (!user) throw new HttpError(req.t('MESSAGE.API.AUTH_FAILD'), 401);
 
         const expiryDate = moment(user.expiryDate).endOf('day');

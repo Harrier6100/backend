@@ -10,7 +10,13 @@
     "LOGOUT": "@:{'LABEL.LOGOUT'}",
     "YES": "@:{'LABEL.YES'}",
     "NO": "@:{'LABEL.NO'}",
-    "PERMISSION": "@:{'LABEL.PERMISSION'}"
+    "PERMISSION": "@:{'LABEL.PERMISSION'}",
+    "ADD": "追加",
+    "OPEN_MODAL": "...",
+    "PUSH": "挿入",
+    "UP": "↑",
+    "DOWN": "↓",
+    "REMOVE": "削除"
   },
   "MENU": {
     "ADMIN": "管理",
@@ -64,7 +70,30 @@
     "PERMISSION": "権限",
     "READ": "参照",
     "CREATE": "作成",
-    "UPDATE": "更新"
+    "UPDATE": "更新",
+    "SPECS": {
+      "MATERIAL_ID": "原材料コード",
+      "MATERIAL_NAME": "原材料名",
+      "SUPPLIER_ID": "仕入先コード",
+      "SUPPLIER_NAME": "仕入先名",
+      "IS_SPC": "傾向管理",
+      "UOM": "単位",
+      "SPEC_TYPE": "規格タイプ",
+      "SPEC": "規格",
+      "PROPERTY_ID": "物性コード",
+      "PROPERTY_NAME": "物性名",
+      "SPEC_VALUE": "規格値",
+      "SPEC_VALUE_CONSTANT": "定数",
+      "SPEC_VALUE_MIN": "最小値",
+      "SPEC_VALUE_MAX": "最大値",
+      "SPEC_VALUE_NOMINAL": "基準値",
+      "SPEC_VALUE_TOLERANCE": "許容差",
+      "IS_SPC_TRUE": "する",
+      "IS_SPC_FALSE": "しない"
+    },
+    "IS_ACTIVE_TRUE": "有効",
+    "IS_ACTIVE_FALSE": "無効",
+    "IS_ACTIVE": "状態"
   },
   "MESSAGE": {
     "API": {

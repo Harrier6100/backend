@@ -10,7 +10,13 @@
     "LOGOUT": "@:{'LABEL.LOGOUT'}",
     "YES": "@:{'LABEL.YES'}",
     "NO": "@:{'LABEL.NO'}",
-    "PERMISSION": "@:{'LABEL.PERMISSION'}"
+    "PERMISSION": "@:{'LABEL.PERMISSION'}",
+    "ADD": "Add",
+    "OPEN_MODAL": "...",
+    "PUSH": "Push",
+    "UP": "↑",
+    "DOWN": "↓",
+    "REMOVE": "Remove"
   },
   "MENU": {
     "ADMIN": "Admin",
@@ -60,6 +66,12 @@
     "PERMISSION": "Permission",
     "READ": "Read",
     "CREATE": "Create",
-    "UPDATE": "Update"
+    "UPDATE": "Update",
+    "SPECS": {
+      "MATERIAL_ID": "Material Code",
+      "MATERIAL_NAME": "Material Name",
+      "SUPPLIER_ID": "Supplier Code",
+      "SUPPLIER_NAME": "Supplier Name"
+    }
   }
 }

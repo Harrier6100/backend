@@ -2,14 +2,17 @@ const express = require('express');
 const router = express.Router();
 const HttpError = require('@/errors/HttpError');
 const verifyToken = require('@/middlewares/verifyToken');
-const Users = require('@/models/users');
+const { snakeize } = require('@/utils/case');
+const db = require('@/config/db.postgres');
 
 router.get('/', verifyToken, async (req, res, next) => {
     try {
-        const user = await Users.findById(req.user.id);
-        if (!user) throw new HttpError(req.t('MESSAGE.USER_IS_NOT_FOUND'), 404);
+        const me = await db.oneOrNone(`
+            select * from users where id = \${id}
+        `, { id: req.user.id });
+        if (!me) throw new HttpError(req.t('MESSAGE.USER_IS_NOT_FOUND'), 404);
 
-        res.status(200).json(user);
+        res.status(200).json(me);
     } catch (err) {
         next(err);
     }
@@ -17,14 +20,20 @@ router.get('/', verifyToken, async (req, res, next) => {
 
 router.post('/', verifyToken, async (req, res, next) => {
     try {
-        const user = await Users.findById(req.user.id);
-        if (!user) throw new HttpError(req.t('MESSAGE.USER_IS_NOT_FOUND'), 404);
+        const me = await db.oneOrNone(`
+            select * from users where id = \${id}
+        `, { id: req.user.id });
+        if (!me) throw new HttpError(req.t('MESSAGE.USER_IS_NOT_FOUND'), 404);
 
-        user.name = req.body.name ?? user.name;
-        user.updatedAt = new Date();
-        user.updatedBy = req.user.name;
-        user.updatedById = req.user.id;
-        await user.save();
+        me.name = req.body.name ?? me.name;
+        me.updatedAt = new Date();
+        me.updatedBy = req.user.name;
+        me.updatedById = req.user.id;
+
+        await db.none(`
+            update users set ${Object.keys(me).map(c => snakeize(c) + ' = ${' + c + '}')}
+            where id = \${id}
+        `, me);
 
         res.status(200).json(user);
     } catch (err) {
