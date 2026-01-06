@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const HttpError = require('@/errors/HttpError');
 const { verifyToken } = require('@/middlewares');
 const { snakeize } = require('@/utils/case');
 const db = require('@/config/db.postgres');
@@ -39,6 +40,7 @@ router.post('/', verifyToken, async (req, res, next) => {
         const property = {};
         property.id = req.body.id;
         property.name = req.body.name;
+        property.uom = req.body.uom;
         property.createdAt = new Date();
         property.createdBy = req.user.name;
         property.createdById = req.user.id;
@@ -65,6 +67,7 @@ router.put('/:id', verifyToken, async (req, res, next) => {
         if (!property) throw new HttpError(req.t('MESSAGE.PROPERTY_NOT_FOUND'), 404);
 
         property.name = req.body.name;
+        property.uom = req.body.uom;
         property.updatedAt = new Date();
         property.updatedBy = req.user.name;
         property.updatedById = req.user.id;

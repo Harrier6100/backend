@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const HttpError = require('@/errors/HttpError');
-const verifyToken = require('@/middlewares/verifyToken');
+const { verifyToken } = require('@/middlewares');
 const { snakeize } = require('@/utils/case');
 const db = require('@/config/db.postgres');
 
