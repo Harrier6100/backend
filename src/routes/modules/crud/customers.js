@@ -39,6 +39,7 @@ router.post('/', verifyToken, async (req, res, next) => {
         customer.id = req.body.id;
         customer.name = req.body.name;
         customer.duns = req.body.duns;
+        customer.sites = req.body.sites;
         customer.remarks = req.body.remarks;
         customer.isActive = req.body.isActive;
         customer.createdAt = new Date();
@@ -68,6 +69,7 @@ router.put('/:id', verifyToken, async (req, res, next) => {
 
         customer.name = req.body.name;
         customer.duns = req.body.duns;
+        customer.sites = req.body.sites;
         customer.remarks = req.body.remarks;
         customer.isActive = req.body.isActive;
         customer.updatedAt = new Date();

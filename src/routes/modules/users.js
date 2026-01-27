@@ -52,6 +52,7 @@ router.post('/', verifyToken, async (req, res, next) => {
         const user = {};
         user.id = req.body.id;
         user.name = req.body.name;
+        user.language = req.body.language;
         user.password = await bcrypt.hash(req.body.id, 10);
         user.role = req.body.role;
         user.permissions = req.body.permissions;
@@ -84,6 +85,7 @@ router.put('/:id', verifyToken, async (req, res, next) => {
         if (!user) throw new HttpError('ERROR.USER_NOT_FOUND', 404);
 
         user.name = req.body.name;
+        user.language = req.body.language;
         user.role = req.body.role;
         user.permissions = req.body.permissions;
         user.expiryDate = req.body.expiryDate || null;
