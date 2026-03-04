@@ -3,7 +3,7 @@ const router = express.Router();
 const jsonwebtoken = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const moment = require('moment');
-const db = require('@/config/db');
+const db = require('@/db');
 
 const generateAccessToken = ({ id, name, role, permissions }) => {
     return jsonwebtoken.sign(

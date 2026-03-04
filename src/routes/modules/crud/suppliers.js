@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { snakeize } = require('@/utils/case');
-const db = require('@/config/db');
+const { snakeize } = require('@/helpers/case');
+const db = require('@/db');
 
 router.get('/', verifyToken, async (req, res, next) => {
     try {

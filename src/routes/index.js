@@ -4,14 +4,20 @@ const path = require('path');
 const fs = require('fs');
 
 const modules = path.join(__dirname, 'modules');
+const ignoreRoute = ['ignore', 'read'];
+
 const routes = (directory, route = '') => {
     const entries = fs.readdirSync(directory, { withFileTypes: true });
     const sortedEntries = entries.sort((a, b) => a.name.localeCompare(b.name));
 
     for (const entry of sortedEntries) {
         const absolute = path.join(directory, entry.name);
+
         if (entry.isDirectory()) {
-            const newRoute = path.join(route, entry.name);
+            let newRoute = path.join(route, entry.name);
+            if (ignoreRoute.includes(entry.name)) {
+                newRoute = route;
+            }
             routes(absolute, newRoute);
         } else {
             if (path.basename(entry.name).charAt(0) !== '_') {

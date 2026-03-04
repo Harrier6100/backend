@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { snakeize } = require('@/utils/case');
-const db = require('@/config/db');
+const { snakeize } = require('@/helpers/case');
+const db = require('@/db');
 
 router.get('/', verifyToken, async (req, res, next) => {
     try {
@@ -38,6 +38,7 @@ router.post('/', verifyToken, async (req, res, next) => {
         const material = {};
         material.id = req.body.id;
         material.name = req.body.name;
+        material.components = JSON.stringify(req.body.components || []);
         material.isActive = req.body.isActive;
         material.createdAt = new Date();
         material.createdBy = req.user.name;
@@ -45,6 +46,7 @@ router.post('/', verifyToken, async (req, res, next) => {
         material.updatedAt = new Date();
         material.updatedBy = req.user.name;
         material.updatedById = req.user.id;
+        console.log(material);
 
         await db.none(`
             insert into crud.materials (${snakeize(Object.keys(material))})
