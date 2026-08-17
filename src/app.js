@@ -8,7 +8,7 @@ const cacheControl = require('@/middlewares/cacheControl');
 const accessLogger = require('@/middlewares/accessLogger');
 const errorLogger = require('@/middlewares/errorLogger');
 const errorHandler = require('@/middlewares/errorHandler');
-const notFound = require('@/middlewares/notFound');
+const routeNotFound = require('@/middlewares/routeNotFound');
 
 const corsOptions = {
     origin: true,
@@ -27,7 +27,7 @@ app.use(cookie());
 app.use(cacheControl);
 app.use(accessLogger);
 app.use('/api', require('@/routes'));
-app.use(notFound);
+app.use(routeNotFound);
 app.use(errorLogger);
 app.use(errorHandler);
 
