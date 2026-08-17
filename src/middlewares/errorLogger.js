@@ -5,8 +5,9 @@ const logger = log4js.getLogger('error');
 const errorLogger = (err, req, res, next) => {
     const { method, originalUrl } = req;
     const status = err.status || 500;
+    const level = status >= 500 ? 'error' : 'warn';
 
-    logger.error(JSON.stringify({
+    logger[level](JSON.stringify({
         requestId: req.requestId,
         ip: req.ip.replace('::ffff:', ''),
         userId: req.user?.id ?? '',
