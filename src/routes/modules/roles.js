@@ -51,7 +51,11 @@ router.post('/', verify(), async (req, res) => {
         role.name = req.body.name;
         role.description = req.body.description;
         role.createdAt = new Date();
+        role.createdBy = req.user.name;
+        role.createdById = req.user.id;
         role.updatedAt = new Date();
+        role.updatedBy = req.user.name;
+        role.updatedById = req.user.id;
 
         await db.none(`
             insert into roles (${Object.keys(role).map(column => snakecase(column)).join(', ')})
@@ -76,6 +80,8 @@ router.put('/:id', verify(), async (req, res) => {
     role.name = req.body.name;
     role.description = req.body.description;
     role.updatedAt = new Date();
+    role.updatedBy = req.user.name;
+    role.updatedById = req.user.id;
 
     await db.none(`
         update roles set ${Object.keys(role).map(column => snakecase(column) + ' = ${'+column+'}').join(', ')}
@@ -111,7 +117,11 @@ router.put('/:id/permissions', verify(), async (req, res) => {
                 permission.roleId = req.params.id;
                 permission.permissionId = permissionId;
                 permission.createdAt = new Date();
+                permission.createdBy = req.user.name;
+                permission.createdById = req.user.id;
                 permission.updatedAt = new Date();
+                permission.updatedBy = req.user.name;
+                permission.updatedById = req.user.id;
 
                 await t.none(`
                     insert into role_permissions (${Object.keys(permission).map(column => snakecase(column)).join(', ')})

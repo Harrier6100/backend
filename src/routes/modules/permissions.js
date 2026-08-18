@@ -36,7 +36,11 @@ router.post('/', verify(), async (req, res) => {
         permission.name = req.body.name;
         permission.description = req.body.description;
         permission.createdAt = new Date();
+        permission.createdBy = req.user.name;
+        permission.createdById = req.user.id;
         permission.updatedAt = new Date();
+        permission.updatedBy = req.user.name;
+        permission.updatedById = req.user.id;
 
         await db.none(`
             insert into permissions (${Object.keys(permission).map(column => snakecase(column)).join(', ')})
@@ -61,6 +65,8 @@ router.put('/:id', verify(), async (req, res) => {
     permission.name = req.body.name;
     permission.description = req.body.description;
     permission.updatedAt = new Date();
+    permission.updatedBy = req.user.name;
+    permission.updatedById = req.user.id;
 
     await db.none(`
         update permissions set ${Object.keys(permission).map(column => snakecase(column) + ' = ${'+column+'}').join(', ')}

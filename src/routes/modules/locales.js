@@ -28,7 +28,11 @@ router.post('/', verify(), async (req, res) => {
         locale.id = req.body.id;
         locale.translations = JSON.stringify(req.body.translations || []);
         locale.createdAt = new Date();
+        locale.createdBy = req.user.name;
+        locale.createdById = req.user.id;
         locale.updatedAt = new Date();
+        locale.updatedBy = req.user.name;
+        locale.updatedById = req.user.id;
 
         await db.none(`
             insert into locales (${Object.keys(locale).map(column => snakecase(column)).join(', ')})
@@ -52,6 +56,8 @@ router.put('/:id', verify(), async (req, res) => {
 
     locale.translations = JSON.stringify(req.body.translations || []);
     locale.updatedAt = new Date();
+    locale.updatedBy = req.user.name;
+    locale.updatedById = req.user.id;
 
     await db.none(`
         update locales set ${Object.keys(locale).map(column => snakecase(column) + ' = ${'+column+'}').join(', ')}

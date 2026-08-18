@@ -16,7 +16,7 @@ const db = require('@/db');
     const hashed = await bcrypt.hash(password, 10);
     await db.none(`
         insert into users (id, name, language, password, is_active, created_at, updated_at)
-        values (\${id}, 'Administrator', 'ja', \${password}, true, now(), now())
+        values (\${id}, 'Admin', 'ja', \${password}, true, now(), now())
     `, { id, password: hashed });
 
     console.info('admin user seeded');

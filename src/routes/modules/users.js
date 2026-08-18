@@ -55,7 +55,11 @@ router.post('/', verify(), async (req, res) => {
         user.remarks = req.body.remarks;
         user.isActive = req.body.isActive;
         user.createdAt = new Date();
+        user.createdBy = req.user.name;
+        user.createdById = req.user.id;
         user.updatedAt = new Date();
+        user.updatedBy = req.user.name;
+        user.updatedById = req.user.id;
 
         await db.none(`
             insert into users (${Object.keys(user).map(column => snakecase(column)).join(', ')})
@@ -82,6 +86,8 @@ router.put('/:id', verify(), async (req, res) => {
     user.remarks = req.body.remarks;
     user.isActive = req.body.isActive;
     user.updatedAt = new Date();
+    user.updatedBy = req.user.name;
+    user.updatedById = req.user.id;
 
     await db.none(`
         update users set ${Object.keys(user).map(column => snakecase(column) + ' = ${'+column+'}').join(', ')}
@@ -117,7 +123,11 @@ router.put('/:id/roles', verify(), async (req, res) => {
                 role.userId = req.params.id;
                 role.roleId = roleId;
                 role.createdAt = new Date();
+                role.createdBy = req.user.name;
+                role.createdById = req.user.id;
                 role.updatedAt = new Date();
+                role.updatedBy = req.user.name;
+                role.updatedById = req.user.id;
 
                 await t.none(`
                     insert into user_roles (${Object.keys(role).map(column => snakecase(column)).join(', ')})
@@ -160,7 +170,11 @@ router.put('/:id/permissions', verify(), async (req, res) => {
                 permission.userId = req.params.id;
                 permission.permissionId = permissionId;
                 permission.createdAt = new Date();
+                permission.createdBy = req.user.name;
+                permission.createdById = req.user.id;
                 permission.updatedAt = new Date();
+                permission.updatedBy = req.user.name;
+                permission.updatedById = req.user.id;
 
                 await t.none(`
                     insert into user_permissions (${Object.keys(permission).map(column => snakecase(column)).join(', ')})
