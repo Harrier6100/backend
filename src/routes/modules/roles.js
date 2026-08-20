@@ -5,18 +5,6 @@ const snakecase = require('@/helpers/snakecase');
 const HttpError = require('@/errors/HttpError');
 const db = require('@/db');
 
-/*
- * role
- * id: admin
- * name: role.admin.name
- * decription: role.admin.description
- *
- *            --- サービス全体の管理者
- * org.*      --- 組織（テナント）単位
- * team.*     --- 組織内のチーム/部門単位
- * group.*    --- 組織内のグループ単位
- */
-
 router.get('/', verify(), async (req, res) => {
     const roles = await db.any(`
         select * from roles order by id
