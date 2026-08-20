@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
     res.status(200).json(locales);
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', verify(), async (req, res) => {
     const locale = await db.oneOrNone(`
         select * from locales where id = \${id}
     `, { id: req.params.id });
