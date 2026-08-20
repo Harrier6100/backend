@@ -26,7 +26,7 @@ const generateRefreshToken = ({ id }) => {
         { id },
         process.env.REFRESH_TOKEN_SECRET,
         { expiresIn: '7d' }
-    )
+    );
 };
 
 const getRolesAndPermissions = async (id) => {
