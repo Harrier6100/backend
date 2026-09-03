@@ -2,30 +2,31 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const verify = require('@/middlewares/verify');
+const safe = require('@/middlewares/safe');
 const snakecase = require('@/helpers/snakecase');
 const HttpError = require('@/errors/HttpError');
 const db = require('@/db');
 
 const strip = ({ password, ...user }) => user;
 
-router.get('/', verify(), async (req, res) => {
+router.get('/', verify(), safe(async (req, res) => {
     const users = await db.any(`
         select * from users order by id
     `);
 
     res.status(200).json(users.map(strip));
-});
+}));
 
-router.get('/:id', verify(), async (req, res) => {
+router.get('/:id', verify(), safe(async (req, res) => {
     const user = await db.oneOrNone(`
         select * from users where id = \${id}
     `, { id: req.params.id === 'me' ? req.user.id : req.params.id });
     if (!user) throw new HttpError(404, 'user_not_found');
 
     res.status(200).json(strip(user));
-});
+}));
 
-router.get('/:id/roles', verify(), async (req, res) => {
+router.get('/:id/roles', verify(), safe(async (req, res) => {
     const roles = await db.any(`
         select roles.* from user_roles
             join roles on roles.id = user_roles.role_id
@@ -33,9 +34,9 @@ router.get('/:id/roles', verify(), async (req, res) => {
     `, { id: req.params.id });
 
     res.status(200).json(roles);
-});
+}));
 
-router.get('/:id/permissions', verify(), async (req, res) => {
+router.get('/:id/permissions', verify(), safe(async (req, res) => {
     const permissions = await db.any(`
         select permissions.* from user_permissions
             join permissions on permissions.id = user_permissions.permission_id
@@ -43,39 +44,39 @@ router.get('/:id/permissions', verify(), async (req, res) => {
     `, { id: req.params.id });
 
     res.status(200).json(permissions);
-});
+}));
 
-router.post('/', verify(), async (req, res) => {
+router.post('/', verify(), safe(async (req, res) => {
+    const user = {};
+    user.id = req.body.id;
+    user.name = req.body.name;
+    user.language = req.body.language;
+    user.password = await bcrypt.hash(req.body.id, 10);
+    user.remarks = req.body.remarks;
+    user.isActive = req.body.isActive;
+    user.createdAt = new Date();
+    user.createdBy = req.user.name;
+    user.createdById = req.user.id;
+    user.updatedAt = new Date();
+    user.updatedBy = req.user.name;
+    user.updatedById = req.user.id;
+
     try {
-        const user = {};
-        user.id = req.body.id;
-        user.name = req.body.name;
-        user.language = req.body.language;
-        user.password = await bcrypt.hash(req.body.id, 10);
-        user.remarks = req.body.remarks;
-        user.isActive = req.body.isActive;
-        user.createdAt = new Date();
-        user.createdBy = req.user.name;
-        user.createdById = req.user.id;
-        user.updatedAt = new Date();
-        user.updatedBy = req.user.name;
-        user.updatedById = req.user.id;
-
         await db.none(`
             insert into users (${Object.keys(user).map(column => snakecase(column)).join(', ')})
             values (${Object.keys(user).map(column => '${'+column+'}').join(', ')})
         `, user);
-
-        res.status(200).json(strip(user));
     } catch (err) {
         if (err.code === '23505') {
             throw new HttpError(409, 'user_already_exists');
         }
         throw err;
     }
-});
 
-router.put('/:id', verify(), async (req, res) => {
+    res.status(200).json(strip(user));
+}));
+
+router.put('/:id', verify(), safe(async (req, res) => {
     const user = await db.oneOrNone(`
         select * from users where id = \${id}
     `, { id: req.params.id });
@@ -95,9 +96,9 @@ router.put('/:id', verify(), async (req, res) => {
     `, user);
 
     res.status(200).json(strip(user));
-});
+}));
 
-router.put('/:id/roles', verify(), async (req, res) => {
+router.put('/:id/roles', verify(), safe(async (req, res) => {
     const { roles } = req.body;
 
     const beforeRoles = await db.any(`
@@ -142,9 +143,9 @@ router.put('/:id/roles', verify(), async (req, res) => {
     `, { id: req.params.id });
 
     res.status(200).json({ roles: afterRoles.map(role => role.roleId) });
-});
+}));
 
-router.put('/:id/permissions', verify(), async (req, res) => {
+router.put('/:id/permissions', verify(), safe(async (req, res) => {
     const { permissions } = req.body;
 
     const beforePermissions = await db.any(`
@@ -189,9 +190,9 @@ router.put('/:id/permissions', verify(), async (req, res) => {
     `, { id: req.params.id });
 
     res.status(200).json({ permissions: afterPermissions.map(permission => permission.permissionId )});
-});
+}));
 
-router.delete('/:id', verify(), async (req, res) => {
+router.delete('/:id', verify(), safe(async (req, res) => {
     const user = await db.oneOrNone(`
         select * from users where id = \${id}
     `, { id: req.params.id });
@@ -202,6 +203,6 @@ router.delete('/:id', verify(), async (req, res) => {
     `, { id: req.params.id });
 
     res.status(200).json(strip(user));
-});
+}));
 
 module.exports = router;

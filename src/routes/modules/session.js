@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const jsonwebtoken = require('jsonwebtoken');
 const rateLimiter = require('@/middlewares/rateLimiter');
+const safe = require('@/middlewares/safe');
 const HttpError = require('@/errors/HttpError');
 const db = require('@/db');
 
@@ -56,7 +57,7 @@ const verifyToken = (token, secret) => {
     }
 };
 
-router.post('/start', rateLimiter({ windowMs: 1000 * 60 * 15, max: 5 }), async (req, res) => {
+router.post('/start', rateLimiter({ windowMs: 1000 * 60 * 15, max: 5 }), safe(async (req, res) => {
     const { id, password } = req.body;
 
     const user = await db.oneOrNone(`
@@ -73,9 +74,9 @@ router.post('/start', rateLimiter({ windowMs: 1000 * 60 * 15, max: 5 }), async (
 
     res.cookie('refreshToken', refreshToken, getCookieOptions());
     res.status(200).json({ token: accessToken });
-});
+}));
 
-router.post('/resume', async (req, res) => {
+router.post('/resume', safe(async (req, res) => {
     const token = req.cookies.refreshToken;
     if (!token) throw new HttpError(401, 'token_not_found');
 
@@ -93,9 +94,9 @@ router.post('/resume', async (req, res) => {
 
     res.cookie('refreshToken', refreshToken, getCookieOptions());
     res.status(200).json({ token: accessToken });
-});
+}));
 
-router.post('/end', (req, res) => {
+router.post('/end', safe((req, res) => {
     const token = req.cookies.refreshToken;
     if (!token) return res.sendStatus(204);
 
@@ -103,6 +104,6 @@ router.post('/end', (req, res) => {
     res.clearCookie('refreshToken', cookieOptions);
 
     res.sendStatus(200);
-});
+}));
 
 module.exports = router;

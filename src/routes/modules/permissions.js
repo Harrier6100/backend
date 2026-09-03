@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const verify = require('@/middlewares/verify');
-const snakecase = require('@/helpers/snakecase');
-const HttpError = require('@/errors/HttpError');
+const safe = require('@/middlewares/safe');
 const db = require('@/db');
 
-router.get('/', verify(), async (req, res) => {
+router.get('/', verify(), safe(async (req, res) => {
     const permissions = await db.any(`
         select * from permissions
         order by
@@ -20,6 +19,6 @@ router.get('/', verify(), async (req, res) => {
     `);
 
     res.status(200).json(permissions);
-});
+}));
 
 module.exports = router;
