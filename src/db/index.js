@@ -1,20 +1,22 @@
 const pgp = require('pg-promise')({
-    receive({ data }) {
-        data.forEach((row, i) => {
-            data[i] = Object.fromEntries(
-                Object.entries(row).map(([c, v]) => [pgp.utils.camelize(c), v])
+    receive({ data: rows }) {
+        for (const [i, row] of rows.entries()) {
+            rows[i] = Object.fromEntries(
+                Object.entries(row).map(([column, value]) =>
+                    [pgp.utils.camelize(column), value]
+                )
             );
-        });
+        }
     },
-    error(err, e) {
+    error(err, event) {
         console.error(err);
-        if (e.query) {
-            console.error(e.query);
+        if (event.query) {
+            console.error(event.query);
         }
-        if (e.params) {
-            console.error(e.params);
+        if (event.params) {
+            console.error(event.params);
         }
-    }
+    },
 });
 
 pgp.pg.types.setTypeParser(1700, parseFloat);

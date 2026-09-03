@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const path = require('path');
 const fs = require('fs');
+const path = require('path');
 
 const modules = path.join(__dirname, 'modules');
 const routes = (directory, route = '') => {
