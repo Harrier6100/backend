@@ -3,6 +3,7 @@ const RESOURCES = [
     'roles',
     'permissions',
     'locales',
+    'materials',
 ];
 
 const ACTIONS = [
