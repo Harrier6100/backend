@@ -1,5 +1,7 @@
 create table permissions (
     id varchar primary key,
+    name varchar,
+    description varchar,
     created_at timestamptz default now(),
     created_by varchar,
     created_by_id varchar,
